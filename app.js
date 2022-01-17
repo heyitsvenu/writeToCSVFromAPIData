@@ -3,11 +3,9 @@ const fs = require('fs');
 const ws = fs.createWriteStream('out.csv');
 const { format, add } = require('date-fns');
 const axios = require('axios');
+const { argv } = require('process');
 
-const writeToCsv = (
-  pageSize = 50,
-  q = 'chicago-illinois-united-states-of-america'
-) => {
+const writeToCsv = () => {
   axios
     .post('https://www.vrbo.com/serp/g', {
       operationName: 'SearchRequestQuery',
@@ -16,7 +14,7 @@ const writeToCsv = (
         request: {
           paging: {
             page: 1,
-            pageSize: pageSize,
+            pageSize: Number(argv[2]),
           },
           filterVersion: '1',
           coreFilters: {
@@ -32,7 +30,7 @@ const writeToCsv = (
             pets: 0,
           },
           filters: [],
-          q: q,
+          q: argv[3],
         },
         optimizedBreadcrumb: false,
         vrbo_web_global_messaging_banner: true,
