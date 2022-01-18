@@ -98,4 +98,4 @@ const writeToCsv = () => {
     });
 };
 
-writeToCsv(50, '500 W Madison St Chicago IL 60607');
+writeToCsv();
